@@ -52,27 +52,27 @@ az login
   **Windows (PowerShell):**
   ```powershell
   cd infra/deploy-yourself
-  .\deploy.ps1 -ResourceGroupName "rg-lab511" -Location "westcentralus"
+  .\deploy.ps1 -ResourceGroupName "LAB511-ResourceGroup" -Location "westcentralus"
   ```
 
   **Linux/macOS (Bash):**
   ```bash
   cd infra/deploy-yourself
-  ./deploy.sh -g "rg-lab511" -l "westcentralus"
+  ./deploy.sh -g "LAB511-ResourceGroup" -l "westcentralus"
   ```
 
 #### Option B: Manual Deployment
 
 ```bash
 # Create resource group
-az group create --name rg-lab511 --location westcentralus
+az group create --name **LAB511-ResourceGroup** --location westcentralus
 
 # Get your user object ID
 USER_OBJECT_ID=$(az ad signed-in-user show --query id -o tsv)
 
 # Deploy Bicep template
 az deployment group create \
-  --resource-group rg-lab511 \
+  --resource-group LAB511-ResourceGroup \
   --template-file ../LAB511.bicep \
   --parameters labUserObjectId=$USER_OBJECT_ID \
   --parameters resourcePrefix=lab511
@@ -86,12 +86,12 @@ After the infrastructure is deployed, run the setup script:
 
 **Windows (PowerShell):**
 ```powershell
-.\setup-environment.ps1 -ResourceGroupName "rg-lab511"
+.\setup-environment.ps1 -ResourceGroupName "LAB511-ResourceGroup"
 ```
 
 **Linux/macOS (Bash):**
 ```bash
-./setup-environment.sh -g "rg-lab511"
+./setup-environment.sh -g "LAB511-ResourceGroup"
 ```
 
 This script will retrieve connection strings and endpoints from Azure, create a `.env` file in the repository root, set up the Python virtual environment, install required dependencies, and create the search indexes and upload sample data.
@@ -107,7 +107,7 @@ Open the [notebooks](../../notebooks) folder in VS Code and **start with `part1-
 To delete all resources and avoid ongoing charges:
 
 ```bash
-az group delete --name rg-lab511 --yes --no-wait
+az group delete --name LAB511-ResourceGroup --yes --no-wait
 ```
 
 ## 📚 Additional Resources
